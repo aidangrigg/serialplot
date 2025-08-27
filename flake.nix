@@ -22,6 +22,24 @@
               cmake
             ];
           };
-          buildInputs = [];
+
+          packages.default = pkgs.stdenv.mkDerivation {
+            pname = "serialplot";
+            version = "0.13";
+
+            src = ./.;
+
+            nativeBuildInputs = with pkgs; [
+              cmake
+              qt6.wrapQtAppsHook
+            ];
+
+            cmakeFlags = ["-DBUILD_QWT=false"];
+
+            buildInputs = with pkgs; [
+              qt6.full
+              qwt
+            ];
+          };
         });
 }
